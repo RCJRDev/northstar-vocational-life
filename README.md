@@ -57,19 +57,20 @@ To enable the contact form:
 <input type="hidden" name="access_key" value="YOUR_ACTUAL_KEY_HERE">
 ```
 
-### 2. Scheduling Integration (Optional)
+### 2. Cal.com Scheduling Integration
 
-To add online scheduling:
+The website uses [Cal.com](https://cal.com) for online scheduling. To configure:
 
-1. Sign up for a service like [Calendly](https://calendly.com), [Acuity](https://acuityscheduling.com), or [Cal.com](https://cal.com)
-2. Create your booking link
-3. In `contact.html`, find the scheduling section comment and add your embed code:
+1. Sign up for a free account at [Cal.com](https://cal.com)
+2. Create an event type (e.g., "Free Consultation" - 30 min)
+3. Note your Cal.com link (e.g., `cal.com/your-username/consultation`)
+4. Open `contact.html` and find this line (~line 387):
 
-```html
-<!-- Example for Calendly -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/your-link" style="min-width:320px;height:700px;"></div>
-<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+```javascript
+calLink: "YOUR-CALCOM-USERNAME/consultation"
 ```
+
+5. Replace `YOUR-CALCOM-USERNAME/consultation` with your actual Cal.com link path (e.g., `jane-smith/free-consultation`)
 
 ### 3. Deployment
 

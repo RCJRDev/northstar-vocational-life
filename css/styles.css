@@ -1432,3 +1432,23 @@ p {
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+/* ==========================================
+   Scheduling Widget (Cal.com)
+   ========================================== */
+
+.scheduling-widget {
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--border-radius-lg);
+}
+
+.scheduling-widget #cal-inline {
+  border-radius: var(--border-radius-lg);
+}
+
+@media (max-width: 639px) {
+  .scheduling-widget #cal-inline {
+    height: 500px;
+  }
+}
