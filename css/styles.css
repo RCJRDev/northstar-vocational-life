@@ -1515,17 +1515,8 @@ p {
 }
 
 .scheduling-details-card h3 {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
   margin-bottom: var(--spacing-lg);
   color: var(--color-primary-800);
-}
-
-.scheduling-details-card h3 svg {
-  width: 24px;
-  height: 24px;
-  color: var(--color-primary-600);
 }
 
 .scheduling-call-card {
