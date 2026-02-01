@@ -1437,36 +1437,6 @@ p {
    Scheduling Widget (Cal.com)
    ========================================== */
 
-/* Quick info banner - mobile */
-.scheduling-quick-info {
-  display: flex;
-  justify-content: center;
-  gap: var(--spacing-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
-  background: var(--color-primary-50);
-  border-radius: var(--border-radius-lg);
-  margin-bottom: var(--spacing-xl);
-}
-
-.scheduling-quick-info__item {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-  color: var(--color-primary-700);
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-}
-
-.scheduling-quick-info__item svg {
-  color: var(--color-primary-600);
-}
-
-@media (min-width: 1024px) {
-  .scheduling-quick-info {
-    display: none;
-  }
-}
-
 /* Layout */
 .scheduling-layout {
   display: grid;
@@ -1476,7 +1446,7 @@ p {
 
 @media (min-width: 1024px) {
   .scheduling-layout {
-    grid-template-columns: 1fr 340px;
+    grid-template-columns: 1fr 360px;
     gap: var(--spacing-2xl);
   }
 }
@@ -1486,15 +1456,9 @@ p {
 }
 
 .scheduling-sidebar {
-  display: none;
+  display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
-}
-
-@media (min-width: 1024px) {
-  .scheduling-sidebar {
-    display: flex;
-  }
 }
 
 /* Widget container */
@@ -1505,20 +1469,45 @@ p {
 
 .scheduling-widget #cal-inline {
   width: 100%;
-  height: 650px;
+  height: 700px;
   overflow: auto;
 }
 
-/* Sidebar cards */
+/* Fallback for no-JS */
+.scheduling-fallback {
+  text-align: center;
+  padding: var(--spacing-xl);
+}
+
+.scheduling-fallback p {
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Sidebar: Details Card */
 .scheduling-details-card {
   border-left: 4px solid var(--color-primary-500);
 }
 
-.scheduling-details-card h3 {
+.scheduling-details-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
   margin-bottom: var(--spacing-lg);
+}
+
+.scheduling-details-card__header h3 {
+  margin: 0;
   color: var(--color-primary-800);
 }
 
+.scheduling-details-card__icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-600);
+  flex-shrink: 0;
+}
+
+/* Sidebar: Call Card */
 .scheduling-call-card {
   background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-primary-50) 100%);
   border: none;
@@ -1535,14 +1524,28 @@ p {
   font-size: var(--font-size-sm);
 }
 
-.scheduling-call-card .btn {
+/* Button utilities */
+.btn--full {
   width: 100%;
 }
 
-/* Mobile/Tablet: taller widget for payment forms */
+.btn__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-group--center {
+  justify-content: center;
+}
+
+/* Mobile: taller widget for payment forms */
 @media (max-width: 1023px) {
   .scheduling-widget #cal-inline {
     height: 900px;
+  }
+
+  .scheduling-sidebar {
+    margin-top: var(--spacing-lg);
   }
 }
 
@@ -1556,4 +1559,23 @@ p {
   .form-row {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* Button Loader */
+.btn-loader {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-loader__spinner {
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

@@ -72,7 +72,7 @@
       <li><a href="contact.html" class="mobile-nav__link mobile-nav__link--active">Contact</a></li>
     </ul>
     <div class="mobile-nav__cta">
-      <a href="contact.html" class="btn btn--primary" style="width: 100%;">Get in Touch</a>
+      <a href="contact.html" class="btn btn--primary btn--full">Get in Touch</a>
     </div>
   </nav>
 
@@ -90,7 +90,7 @@
       </div>
     </section>
 
-    <!-- Schedule Section - Primary CTA -->
+    <!-- Schedule Section -->
     <section class="section" id="schedule" aria-labelledby="schedule-heading">
       <div class="container">
         <div class="section-header">
@@ -98,29 +98,6 @@
           <p class="lead">
             Select a time that works for you. It only takes a minute.
           </p>
-        </div>
-
-        <!-- Mobile: Quick info banner -->
-        <div class="scheduling-quick-info">
-          <div class="scheduling-quick-info__item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-            <span>50 min</span>
-          </div>
-          <div class="scheduling-quick-info__item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            <span>Confidential</span>
-          </div>
-          <div class="scheduling-quick-info__item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-            </svg>
-            <span>EN / ES</span>
-          </div>
         </div>
 
         <div class="scheduling-layout">
@@ -171,9 +148,9 @@
 
             <!-- Fallback contact options -->
             <noscript>
-              <div class="card" style="text-align: center; padding: var(--spacing-xl);">
-                <p style="margin-bottom: var(--spacing-lg);">JavaScript is required for online scheduling. Please contact us directly:</p>
-                <div class="btn-group" style="justify-content: center;">
+              <div class="card scheduling-fallback">
+                <p>JavaScript is required for online scheduling. Please contact us directly:</p>
+                <div class="btn-group btn-group--center">
                   <a href="tel:8602656437" class="btn btn--primary">Call (860) 265-6437</a>
                   <a href="mailto:northstarvocationallife@gmail.com" class="btn btn--secondary">Email Us</a>
                 </div>
@@ -181,17 +158,17 @@
             </noscript>
           </div>
 
-          <!-- Sidebar - Desktop only -->
+          <!-- Sidebar -->
           <div class="scheduling-sidebar">
             <div class="card scheduling-details-card">
-              <h3 style="display: flex; align-items: center; gap: var(--spacing-sm);">
-                <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-600)" stroke-width="2" style="width: 24px; height: 24px; flex-shrink: 0;">
+              <div class="scheduling-details-card__header">
+                <svg class="scheduling-details-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="10"/>
                   <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
                   <line x1="12" y1="17" x2="12.01" y2="17"/>
                 </svg>
-                What to Expect
-              </h3>
+                <h3>What to Expect</h3>
+              </div>
               <ul class="feature-list">
                 <li class="feature-list__item">
                   <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -229,8 +206,8 @@
             <div class="card scheduling-call-card">
               <h3>Prefer to Talk First?</h3>
               <p>Call or text anytime. We're happy to answer questions before you book.</p>
-              <a href="tel:8602656437" class="btn btn--primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
+              <a href="tel:8602656437" class="btn btn--primary btn--full">
+                <svg class="btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
                 (860) 265-6437
@@ -355,10 +332,10 @@
             <span class="form-error" aria-live="polite"></span>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--large" style="width: 100%;">
+          <button type="submit" class="btn btn--primary btn--large btn--full">
             <span class="btn-text">Send Message</span>
-            <span class="btn-loader" style="display: none;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; animation: spin 1s linear infinite;">
+            <span class="btn-loader">
+              <svg class="btn-loader__spinner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
                 <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"/>
               </svg>
@@ -366,18 +343,6 @@
             </span>
           </button>
         </form>
-
-        <style>
-          @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-          }
-          .btn-loader {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-          }
-        </style>
       </div>
     </section>
   </main>
