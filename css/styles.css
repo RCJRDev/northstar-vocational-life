@@ -1470,9 +1470,23 @@ p {
   border-radius: var(--border-radius-lg);
 }
 
-@media (max-width: 639px) {
+/* Mobile: taller widget to accommodate payment forms */
+@media (max-width: 1023px) {
+  .scheduling-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .scheduling-main {
+    order: 1;
+  }
+
+  .scheduling-sidebar {
+    order: 2;
+  }
+
   .scheduling-widget #cal-inline {
-    height: 550px;
+    height: 800px;
   }
 }
 
