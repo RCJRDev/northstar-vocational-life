@@ -1437,6 +1437,37 @@ p {
    Scheduling Widget (Cal.com)
    ========================================== */
 
+/* Quick info banner - mobile */
+.scheduling-quick-info {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-primary-50);
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.scheduling-quick-info__item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-primary-700);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.scheduling-quick-info__item svg {
+  color: var(--color-primary-600);
+}
+
+@media (min-width: 1024px) {
+  .scheduling-quick-info {
+    display: none;
+  }
+}
+
+/* Layout */
 .scheduling-layout {
   display: grid;
   gap: var(--spacing-xl);
@@ -1445,7 +1476,7 @@ p {
 
 @media (min-width: 1024px) {
   .scheduling-layout {
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 340px;
     gap: var(--spacing-2xl);
   }
 }
@@ -1455,36 +1486,72 @@ p {
 }
 
 .scheduling-sidebar {
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: var(--spacing-lg);
 }
 
+@media (min-width: 1024px) {
+  .scheduling-sidebar {
+    display: flex;
+  }
+}
+
+/* Widget container */
 .scheduling-widget {
   padding: 0;
   overflow: hidden;
   border-radius: var(--border-radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
 }
 
 .scheduling-widget #cal-inline {
   border-radius: var(--border-radius-lg);
 }
 
+/* Sidebar cards */
+.scheduling-details-card {
+  border-left: 4px solid var(--color-primary-500);
+}
+
+.scheduling-details-card h3 {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+  color: var(--color-primary-800);
+}
+
+.scheduling-details-card h3 svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-600);
+}
+
+.scheduling-call-card {
+  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-primary-50) 100%);
+  border: none;
+  text-align: center;
+}
+
+.scheduling-call-card h3 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.scheduling-call-card p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+}
+
+.scheduling-call-card .btn {
+  width: 100%;
+}
+
 /* Mobile/Tablet: ensure widget can expand for payment forms */
 @media (max-width: 1023px) {
-  .scheduling-layout {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .scheduling-main {
-    order: 1;
-  }
-
-  .scheduling-sidebar {
-    order: 2;
-  }
-
   .scheduling-widget #cal-inline {
     min-height: 900px;
     height: auto !important;
