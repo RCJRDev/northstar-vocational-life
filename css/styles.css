@@ -1437,6 +1437,29 @@ p {
    Scheduling Widget (Cal.com)
    ========================================== */
 
+.scheduling-layout {
+  display: grid;
+  gap: var(--spacing-xl);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .scheduling-layout {
+    grid-template-columns: 1fr 320px;
+    gap: var(--spacing-2xl);
+  }
+}
+
+.scheduling-main {
+  min-width: 0;
+}
+
+.scheduling-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
 .scheduling-widget {
   padding: 0;
   overflow: hidden;
@@ -1449,6 +1472,18 @@ p {
 
 @media (max-width: 639px) {
   .scheduling-widget #cal-inline {
-    height: 500px;
+    height: 550px;
+  }
+}
+
+/* Form Row - Two Column Layout */
+.form-row {
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
   }
 }

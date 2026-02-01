@@ -82,208 +82,85 @@
     <section class="page-header">
       <div class="container">
         <div class="page-header__content">
-          <h1 class="page-header__title">Contact Us</h1>
+          <h1 class="page-header__title">Let's Get Started</h1>
           <p class="page-header__text">
-            Ready to take the first step? Reach out today and let's discuss
-            how we can help you move forward.
+            Book your consultation and take the first step toward clarity and confidence.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Contact Information -->
-    <section class="section" aria-labelledby="contact-info-heading">
+    <!-- Schedule Section - Primary CTA -->
+    <section class="section" id="schedule" aria-labelledby="schedule-heading">
       <div class="container">
-        <h2 id="contact-info-heading" class="sr-only">Contact Information</h2>
-
-        <div class="contact-info-grid">
-          <div class="contact-info-card">
-            <div class="contact-info-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-            </div>
-            <div>
-              <h3 class="contact-info-card__title">Phone</h3>
-              <p class="contact-info-card__text">Call or text for inquiries</p>
-              <a href="tel:8602656437" class="contact-info-card__link">(860) 265-6437</a>
-            </div>
-          </div>
-
-          <div class="contact-info-card">
-            <div class="contact-info-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-              </svg>
-            </div>
-            <div>
-              <h3 class="contact-info-card__title">Email</h3>
-              <p class="contact-info-card__text">Send us a message anytime</p>
-              <a href="mailto:northstarvocationallife@gmail.com" class="contact-info-card__link">northstarvocationallife@gmail.com</a>
-            </div>
-          </div>
-
-          <div class="contact-info-card">
-            <div class="contact-info-card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                <line x1="16" y1="2" x2="16" y2="6"/>
-                <line x1="8" y1="2" x2="8" y2="6"/>
-                <line x1="3" y1="10" x2="21" y2="10"/>
-              </svg>
-            </div>
-            <div>
-              <h3 class="contact-info-card__title">Schedule</h3>
-              <p class="contact-info-card__text">Book a consultation</p>
-              <a href="#schedule" class="contact-info-card__link">Schedule Online</a>
-            </div>
-          </div>
+        <div class="section-header">
+          <h2 id="schedule-heading">Book Your Consultation</h2>
+          <p class="lead">
+            Select a time that works for you. It only takes a minute.
+          </p>
         </div>
-      </div>
-    </section>
 
-    <!-- Contact Form Section -->
-    <section class="section section--alt" id="contact-form-section" aria-labelledby="form-heading">
-      <div class="container">
-        <div class="grid grid--2" style="gap: var(--spacing-4xl); align-items: start;">
-          <!-- Form -->
-          <div>
-            <h2 id="form-heading">Send Us a Message</h2>
-            <p class="lead" style="margin-bottom: var(--spacing-xl);">
-              Fill out the form below and we'll get back to you as soon as possible.
-            </p>
-
-            <!-- Success Message -->
-            <div id="form-success" class="form-success" style="display: none;" role="alert">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px; margin: 0 auto var(--spacing-sm);">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              <strong>Thank you for your message!</strong><br>
-              We'll get back to you within 24-48 hours.
+        <div class="scheduling-layout">
+          <!-- Cal.com Scheduling Widget -->
+          <div class="scheduling-main">
+            <div class="card scheduling-widget">
+              <div id="cal-inline" style="width:100%;height:650px;overflow:auto;"></div>
             </div>
 
-            <!-- Error Message -->
-            <div id="form-error" class="form-error-message" style="display: none;" role="alert">
-              There was an error sending your message. Please try again or contact us directly by phone.
-            </div>
+            <!-- Cal.com Embed Script -->
+            <script>
+              (function (C, A, L) {
+                let p = function (a, ar) { a.q.push(ar); };
+                let d = C.document;
+                C.Cal = C.Cal || function () {
+                  let cal = C.Cal;
+                  let ar = arguments;
+                  if (!cal.loaded) {
+                    cal.ns = {};
+                    cal.q = cal.q || [];
+                    d.head.appendChild(d.createElement("script")).src = A;
+                    cal.loaded = true;
+                  }
+                  if (ar[0] === L) {
+                    const api = function () { p(api, arguments); };
+                    const namespace = ar[1];
+                    api.q = api.q || [];
+                    typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
+                    return;
+                  }
+                  p(cal, ar);
+                };
+              })(window, "https://app.cal.com/embed/embed.js", "init");
 
-            <!-- Contact Form with Web3Forms -->
-            <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-              <!-- Web3Forms Access Key - Replace with your actual key from https://web3forms.com -->
-              <input type="hidden" name="access_key" value="7fa2d950-6df4-4d35-bcaa-25641b2d4acc">
+              Cal("init", {origin: "https://cal.com"});
 
-              <!-- Form Customization -->
-              <input type="hidden" name="subject" value="New Contact Form Submission - NorthStar Vocational & Life Services">
-              <input type="hidden" name="from_name" value="NorthStar Website">
+              Cal("inline", {
+                elementOrSelector: "#cal-inline",
+                calLink: "north-star-izysgk/30min"
+              });
 
-              <!-- Honeypot Spam Protection - hidden from users, bots will fill it -->
-              <input type="checkbox" name="botcheck" id="botcheck" class="hidden" style="display: none !important; visibility: hidden !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+              Cal("ui", {
+                "theme": "light",
+                "hideEventTypeDetails": false,
+                "layout": "month_view"
+              });
+            </script>
 
-              <div class="form-group">
-                <label for="name" class="form-label form-label--required">Full Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="form-input"
-                  placeholder="Your full name"
-                  required
-                  autocomplete="name"
-                  maxlength="100"
-                  minlength="2"
-                  pattern="[A-Za-z\s\-']+"
-                  title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)"
-                >
-                <span class="form-error" aria-live="polite"></span>
+            <!-- Fallback contact options -->
+            <noscript>
+              <div class="card" style="text-align: center; padding: var(--spacing-xl);">
+                <p style="margin-bottom: var(--spacing-lg);">JavaScript is required for online scheduling. Please contact us directly:</p>
+                <div class="btn-group" style="justify-content: center;">
+                  <a href="tel:8602656437" class="btn btn--primary">Call (860) 265-6437</a>
+                  <a href="mailto:northstarvocationallife@gmail.com" class="btn btn--secondary">Email Us</a>
+                </div>
               </div>
-
-              <div class="form-group">
-                <label for="email" class="form-label form-label--required">Email Address</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  class="form-input"
-                  placeholder="your.email@example.com"
-                  required
-                  autocomplete="email"
-                  maxlength="254"
-                >
-                <span class="form-error" aria-live="polite"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="phone" class="form-label">Phone Number</label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  class="form-input"
-                  placeholder="(123) 456-7890"
-                  autocomplete="tel"
-                  maxlength="20"
-                  pattern="[\d\s\-\(\)\+]+"
-                  title="Please enter a valid phone number"
-                >
-                <span class="form-error" aria-live="polite"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="service" class="form-label form-label--required">Service Interest</label>
-                <select id="service" name="service" class="form-select" required>
-                  <option value="">Select a service...</option>
-                  <option value="Life Coaching">Life Coaching</option>
-                  <option value="Vocational Counseling">Vocational Counseling</option>
-                  <option value="Both Services">Both Services</option>
-                  <option value="Not Sure">Not Sure - Need More Information</option>
-                </select>
-                <span class="form-error" aria-live="polite"></span>
-              </div>
-
-              <div class="form-group">
-                <label for="message" class="form-label form-label--required">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  class="form-textarea"
-                  placeholder="Tell us a bit about your situation and how we can help..."
-                  required
-                  maxlength="2000"
-                  minlength="10"
-                ></textarea>
-                <span class="form-error" aria-live="polite"></span>
-              </div>
-
-              <button type="submit" class="btn btn--primary btn--large" style="width: 100%;">
-                <span class="btn-text">Send Message</span>
-                <span class="btn-loader" style="display: none;">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; animation: spin 1s linear infinite;">
-                    <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-                    <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"/>
-                  </svg>
-                  Sending...
-                </span>
-              </button>
-            </form>
-
-            <style>
-              @keyframes spin {
-                from { transform: rotate(0deg); }
-                to { transform: rotate(360deg); }
-              }
-              .btn-loader {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.5rem;
-              }
-            </style>
+            </noscript>
           </div>
 
-          <!-- Additional Information -->
-          <div>
-            <div class="card" style="margin-bottom: var(--spacing-xl);">
+          <!-- Sidebar -->
+          <div class="scheduling-sidebar">
+            <div class="card">
               <h3 style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-lg);">
                 <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-primary-600)" stroke-width="2" style="width: 24px; height: 24px;">
                   <circle cx="12" cy="12" r="10"/>
@@ -297,34 +174,33 @@
                   <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  <span class="feature-list__text">Response within 24-48 hours</span>
+                  <span class="feature-list__text">50-minute session</span>
                 </li>
                 <li class="feature-list__item">
                   <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  <span class="feature-list__text">Free initial consultation</span>
+                  <span class="feature-list__text">Personalized one-on-one focus</span>
                 </li>
                 <li class="feature-list__item">
                   <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  <span class="feature-list__text">No pressure, no obligations</span>
+                  <span class="feature-list__text">Completely confidential</span>
                 </li>
                 <li class="feature-list__item">
                   <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
-                  <span class="feature-list__text">All inquiries are confidential</span>
+                  <span class="feature-list__text">Calendar invite sent instantly</span>
                 </li>
               </ul>
             </div>
 
             <div class="card" style="background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-primary-50) 100%); border: none;">
-              <h3 style="margin-bottom: var(--spacing-md);">Prefer to Talk?</h3>
+              <h3 style="margin-bottom: var(--spacing-md);">Prefer to Talk First?</h3>
               <p style="color: var(--color-text-secondary); margin-bottom: var(--spacing-lg);">
-                Sometimes a conversation is the best way to get started.
-                Feel free to call or text at your convenience.
+                Call or text anytime. We're happy to answer questions before you book.
               </p>
               <a href="tel:8602656437" class="btn btn--primary" style="width: 100%;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px;">
@@ -338,72 +214,143 @@
       </div>
     </section>
 
-    <!-- Schedule Section -->
-    <section class="section" id="schedule" aria-labelledby="schedule-heading">
+    <!-- Alternative Contact Section -->
+    <section class="section section--alt" id="contact-form-section" aria-labelledby="form-heading">
       <div class="container container--narrow">
         <div class="section-header">
-          <h2 id="schedule-heading">Schedule a Consultation</h2>
+          <h2 id="form-heading">Or Send a Message</h2>
           <p class="lead">
-            Ready to take the next step? Book a time that works for you.
+            Have a question or prefer email? We'll respond within 24-48 hours.
           </p>
         </div>
 
-        <!-- Cal.com Scheduling Widget -->
-        <!-- SETUP: Replace YOUR-CALCOM-USERNAME with your Cal.com username -->
-        <!-- Example: If your Cal.com link is cal.com/jane-smith/consultation, use "jane-smith/consultation" -->
-        <div class="card scheduling-widget">
-          <div id="cal-inline" style="width:100%;height:600px;overflow:auto;"></div>
+        <!-- Success Message -->
+        <div id="form-success" class="form-success" style="display: none;" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px; margin: 0 auto var(--spacing-sm);">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <strong>Thank you for your message!</strong><br>
+          We'll get back to you within 24-48 hours.
         </div>
 
-        <!-- Cal.com Embed Script -->
-        <script>
-          (function (C, A, L) {
-            let p = function (a, ar) { a.q.push(ar); };
-            let d = C.document;
-            C.Cal = C.Cal || function () {
-              let cal = C.Cal;
-              let ar = arguments;
-              if (!cal.loaded) {
-                cal.ns = {};
-                cal.q = cal.q || [];
-                d.head.appendChild(d.createElement("script")).src = A;
-                cal.loaded = true;
-              }
-              if (ar[0] === L) {
-                const api = function () { p(api, arguments); };
-                const namespace = ar[1];
-                api.q = api.q || [];
-                typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar);
-                return;
-              }
-              p(cal, ar);
-            };
-          })(window, "https://app.cal.com/embed/embed.js", "init");
+        <!-- Error Message -->
+        <div id="form-error" class="form-error-message" style="display: none;" role="alert">
+          There was an error sending your message. Please try again or contact us directly by phone.
+        </div>
 
-          Cal("init", {origin: "https://cal.com"});
+        <!-- Contact Form with Web3Forms -->
+        <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <!-- Web3Forms Access Key -->
+          <input type="hidden" name="access_key" value="7fa2d950-6df4-4d35-bcaa-25641b2d4acc">
+          <input type="hidden" name="subject" value="New Contact Form Submission - NorthStar Vocational & Life Services">
+          <input type="hidden" name="from_name" value="NorthStar Website">
 
-          Cal("inline", {
-            elementOrSelector: "#cal-inline",
-            calLink: "north-star-izysgk/30min"
-          });
+          <!-- Honeypot Spam Protection -->
+          <input type="checkbox" name="botcheck" id="botcheck" class="hidden" style="display: none !important; visibility: hidden !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          Cal("ui", {
-            "theme": "light",
-            "hideEventTypeDetails": false,
-            "layout": "month_view"
-          });
-        </script>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name" class="form-label form-label--required">Full Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                placeholder="Your full name"
+                required
+                autocomplete="name"
+                maxlength="100"
+                minlength="2"
+                pattern="[A-Za-z\s\-']+"
+                title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)"
+              >
+              <span class="form-error" aria-live="polite"></span>
+            </div>
 
-        <!-- Fallback contact options -->
-        <noscript>
-          <div class="card" style="text-align: center; padding: var(--spacing-xl);">
-            <p style="margin-bottom: var(--spacing-lg);">JavaScript is required for online scheduling. Please contact us directly:</p>
-            <div class="btn-group" style="justify-content: center;">
-              <a href="tel:8602656437" class="btn btn--primary">Call (860) 265-6437</a>
-              <a href="mailto:northstarvocationallife@gmail.com" class="btn btn--secondary">Email Us</a>
+            <div class="form-group">
+              <label for="email" class="form-label form-label--required">Email Address</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                placeholder="your.email@example.com"
+                required
+                autocomplete="email"
+                maxlength="254"
+              >
+              <span class="form-error" aria-live="polite"></span>
             </div>
           </div>
-        </noscript>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="form-input"
+                placeholder="(123) 456-7890"
+                autocomplete="tel"
+                maxlength="20"
+                pattern="[\d\s\-\(\)\+]+"
+                title="Please enter a valid phone number"
+              >
+              <span class="form-error" aria-live="polite"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="service" class="form-label form-label--required">Service Interest</label>
+              <select id="service" name="service" class="form-select" required>
+                <option value="">Select a service...</option>
+                <option value="Life Coaching">Life Coaching</option>
+                <option value="Vocational Counseling">Vocational Counseling</option>
+                <option value="Both Services">Both Services</option>
+                <option value="Not Sure">Not Sure - Need More Information</option>
+              </select>
+              <span class="form-error" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label form-label--required">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              class="form-textarea"
+              placeholder="Tell us a bit about your situation and how we can help..."
+              required
+              maxlength="2000"
+              minlength="10"
+            ></textarea>
+            <span class="form-error" aria-live="polite"></span>
+          </div>
+
+          <button type="submit" class="btn btn--primary btn--large" style="width: 100%;">
+            <span class="btn-text">Send Message</span>
+            <span class="btn-loader" style="display: none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 20px; height: 20px; animation: spin 1s linear infinite;">
+                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+                <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"/>
+              </svg>
+              Sending...
+            </span>
+          </button>
+        </form>
+
+        <style>
+          @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+          }
+          .btn-loader {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+        </style>
       </div>
     </section>
   </main>
