@@ -1470,7 +1470,7 @@ p {
   border-radius: var(--border-radius-lg);
 }
 
-/* Mobile: taller widget to accommodate payment forms */
+/* Mobile/Tablet: ensure widget can expand for payment forms */
 @media (max-width: 1023px) {
   .scheduling-layout {
     display: flex;
@@ -1486,7 +1486,8 @@ p {
   }
 
   .scheduling-widget #cal-inline {
-    height: 800px;
+    min-height: 900px;
+    height: auto !important;
   }
 }
 
