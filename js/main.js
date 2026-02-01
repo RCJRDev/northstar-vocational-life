@@ -112,6 +112,20 @@
     const btnText = submitBtn.querySelector('.btn-text');
     const btnLoader = submitBtn.querySelector('.btn-loader');
 
+    // Rate limiting - prevent rapid submissions
+    let lastSubmitTime = 0;
+    const RATE_LIMIT_MS = 30000; // 30 seconds between submissions
+
+    // Sanitize input - strip potentially dangerous characters
+    const sanitizeInput = (str) => {
+      if (!str) return '';
+      return str
+        .replace(/[<>]/g, '') // Remove angle brackets
+        .replace(/javascript:/gi, '') // Remove javascript: protocol
+        .replace(/on\w+=/gi, '') // Remove event handlers
+        .trim();
+    };
+
     // Form validation
     const validateField = (field) => {
       const value = field.value.trim();
@@ -119,16 +133,33 @@
       let isValid = true;
       let errorMsg = '';
 
+      // Skip hidden fields
+      if (field.type === 'hidden' || field.type === 'checkbox') {
+        return true;
+      }
+
       // Required check
       if (field.hasAttribute('required') && !value) {
         isValid = false;
         errorMsg = 'This field is required';
       }
 
-      // Email validation
+      // Name validation - only letters, spaces, hyphens, apostrophes
+      if (field.id === 'name' && value) {
+        const nameRegex = /^[A-Za-z\s\-']+$/;
+        if (!nameRegex.test(value)) {
+          isValid = false;
+          errorMsg = 'Please enter a valid name (letters only)';
+        } else if (value.length < 2) {
+          isValid = false;
+          errorMsg = 'Name must be at least 2 characters';
+        }
+      }
+
+      // Email validation - stricter regex
       if (field.type === 'email' && value) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) {
+        const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        if (!emailRegex.test(value) || value.length > 254) {
           isValid = false;
           errorMsg = 'Please enter a valid email address';
         }
@@ -137,9 +168,18 @@
       // Phone validation (optional but if filled, validate format)
       if (field.type === 'tel' && value) {
         const phoneRegex = /^[\d\s\-\(\)\+]+$/;
-        if (!phoneRegex.test(value) || value.replace(/\D/g, '').length < 10) {
+        const digitsOnly = value.replace(/\D/g, '');
+        if (!phoneRegex.test(value) || digitsOnly.length < 10 || digitsOnly.length > 15) {
           isValid = false;
-          errorMsg = 'Please enter a valid phone number';
+          errorMsg = 'Please enter a valid phone number (10-15 digits)';
+        }
+      }
+
+      // Message validation
+      if (field.id === 'message' && value) {
+        if (value.length < 10) {
+          isValid = false;
+          errorMsg = 'Message must be at least 10 characters';
         }
       }
 
@@ -160,7 +200,7 @@
     };
 
     // Add blur validation to fields
-    const fields = form.querySelectorAll('input, select, textarea');
+    const fields = form.querySelectorAll('input:not([type="hidden"]):not([type="checkbox"]), select, textarea');
     fields.forEach(field => {
       field.addEventListener('blur', () => validateField(field));
       field.addEventListener('input', () => {
@@ -173,6 +213,26 @@
     // Form submission
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Check honeypot - if filled, silently reject (it's a bot)
+      const honeypot = form.querySelector('#botcheck');
+      if (honeypot && honeypot.checked) {
+        // Fake success for bots
+        if (successMessage) successMessage.style.display = 'block';
+        form.reset();
+        return;
+      }
+
+      // Rate limiting check
+      const now = Date.now();
+      if (now - lastSubmitTime < RATE_LIMIT_MS) {
+        const waitTime = Math.ceil((RATE_LIMIT_MS - (now - lastSubmitTime)) / 1000);
+        if (errorMessage) {
+          errorMessage.textContent = `Please wait ${waitTime} seconds before submitting again.`;
+          errorMessage.style.display = 'block';
+        }
+        return;
+      }
 
       // Validate all fields
       let isFormValid = true;
@@ -199,16 +259,33 @@
       if (errorMessage) errorMessage.style.display = 'none';
 
       try {
+        // Create sanitized form data
         const formData = new FormData(form);
+
+        // Sanitize text inputs
+        formData.set('name', sanitizeInput(formData.get('name')));
+        formData.set('email', sanitizeInput(formData.get('email')));
+        formData.set('phone', sanitizeInput(formData.get('phone')));
+        formData.set('message', sanitizeInput(formData.get('message')));
+
+        // Create AbortController for timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
         const response = await fetch('https://api.web3forms.com/submit', {
           method: 'POST',
-          body: formData
+          body: formData,
+          signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         const result = await response.json();
 
         if (result.success) {
+          // Update last submit time for rate limiting
+          lastSubmitTime = Date.now();
+
           // Show success message
           if (successMessage) successMessage.style.display = 'block';
           form.reset();
@@ -219,10 +296,17 @@
           throw new Error(result.message || 'Something went wrong');
         }
       } catch (error) {
-        console.error('Form submission error:', error);
-        if (errorMessage) {
-          errorMessage.textContent = 'There was an error sending your message. Please try again or contact us directly by phone.';
-          errorMessage.style.display = 'block';
+        if (error.name === 'AbortError') {
+          if (errorMessage) {
+            errorMessage.textContent = 'Request timed out. Please check your internet connection and try again.';
+            errorMessage.style.display = 'block';
+          }
+        } else {
+          console.error('Form submission error:', error);
+          if (errorMessage) {
+            errorMessage.textContent = 'There was an error sending your message. Please try again or contact us directly by phone.';
+            errorMessage.style.display = 'block';
+          }
         }
       } finally {
         // Reset button state

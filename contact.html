@@ -177,10 +177,9 @@
               <!-- Form Customization -->
               <input type="hidden" name="subject" value="New Contact Form Submission - NorthStar Vocational & Life Services">
               <input type="hidden" name="from_name" value="NorthStar Website">
-              <input type="hidden" name="redirect" value="https://web3forms.com/success">
 
-              <!-- Honeypot Spam Protection -->
-              <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+              <!-- Honeypot Spam Protection - hidden from users, bots will fill it -->
+              <input type="checkbox" name="botcheck" id="botcheck" class="hidden" style="display: none !important; visibility: hidden !important; position: absolute !important; left: -9999px !important;" tabindex="-1" autocomplete="off" aria-hidden="true">
 
               <div class="form-group">
                 <label for="name" class="form-label form-label--required">Full Name</label>
@@ -192,6 +191,10 @@
                   placeholder="Your full name"
                   required
                   autocomplete="name"
+                  maxlength="100"
+                  minlength="2"
+                  pattern="[A-Za-z\s\-']+"
+                  title="Please enter a valid name (letters, spaces, hyphens, and apostrophes only)"
                 >
                 <span class="form-error" aria-live="polite"></span>
               </div>
@@ -206,6 +209,7 @@
                   placeholder="your.email@example.com"
                   required
                   autocomplete="email"
+                  maxlength="254"
                 >
                 <span class="form-error" aria-live="polite"></span>
               </div>
@@ -219,6 +223,9 @@
                   class="form-input"
                   placeholder="(123) 456-7890"
                   autocomplete="tel"
+                  maxlength="20"
+                  pattern="[\d\s\-\(\)\+]+"
+                  title="Please enter a valid phone number"
                 >
                 <span class="form-error" aria-live="polite"></span>
               </div>
@@ -243,6 +250,8 @@
                   class="form-textarea"
                   placeholder="Tell us a bit about your situation and how we can help..."
                   required
+                  maxlength="2000"
+                  minlength="10"
                 ></textarea>
                 <span class="form-error" aria-live="polite"></span>
               </div>
