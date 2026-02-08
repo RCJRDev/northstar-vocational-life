@@ -3,21 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NorthStar Vocational & Life Services offers professional life coaching and vocational counseling to help you find clarity, purpose, and direction. Serving Connecticut with 22 years of experience.">
-  <meta name="keywords" content="life coaching, vocational counseling, career counseling, Connecticut, life services, career assessment, job coaching">
+  <meta name="description" content="NorthStar Vocational & Life Services offers professional life coaching and vocational counseling in Connecticut. Bilingual English/Spanish services with 22+ years of experience. Call (860) 265-6437.">
+  <meta name="keywords" content="life coaching Connecticut, vocational counseling CT, career counseling, bilingual life coach, career assessment, job coaching, Spanish speaking counselor">
   <meta name="author" content="NorthStar Vocational & Life Services">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="NorthStar Vocational & Life Services | Life Coaching & Vocational Counseling">
-  <meta property="og:description" content="Professional life coaching and vocational counseling to help you find clarity, purpose, and direction.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://northstarvocationallife.com">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://northstarvocationallife.com/">
 
-  <title>NorthStar Vocational & Life Services | Life Coaching & Vocational Counseling</title>
+  <!-- Open Graph -->
+  <meta property="og:title" content="NorthStar Vocational & Life Services | Life Coaching & Vocational Counseling in CT">
+  <meta property="og:description" content="Professional life coaching and vocational counseling to help you find clarity, purpose, and direction. Bilingual services in English and Spanish.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://northstarvocationallife.com/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="NorthStar Vocational & Life Services">
+
+  <title>NorthStar Vocational & Life Services | Life Coaching & Vocational Counseling in CT</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://api.web3forms.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
@@ -25,6 +31,25 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232b6cb0'%3E%3Cpath d='M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z'/%3E%3C/svg%3E">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "NorthStar Vocational & Life Services",
+    "description": "Professional life coaching and vocational counseling services in Connecticut. Bilingual English and Spanish.",
+    "url": "https://northstarvocationallife.com",
+    "telephone": "+1-860-265-6437",
+    "email": "northstarvocationallife@gmail.com",
+    "areaServed": {
+      "@type": "State",
+      "name": "Connecticut"
+    },
+    "knowsLanguage": ["en", "es"],
+    "serviceType": ["Life Coaching", "Vocational Counseling", "Career Assessment", "Job Preparation"]
+  }
+  </script>
 </head>
 <body>
   <!-- Skip Link -->
@@ -45,7 +70,7 @@
 
       <nav class="nav" role="navigation" aria-label="Main navigation">
         <ul class="nav__list">
-          <li><a href="index.html" class="nav__link nav__link--active">Home</a></li>
+          <li><a href="index.html" class="nav__link nav__link--active" aria-current="page">Home</a></li>
           <li><a href="life-coaching.html" class="nav__link">Life Coaching</a></li>
           <li><a href="vocational-counseling.html" class="nav__link">Vocational Counseling</a></li>
           <li><a href="about.html" class="nav__link">About</a></li>
@@ -66,7 +91,7 @@
   <!-- Mobile Navigation -->
   <nav class="mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
     <ul class="mobile-nav__list">
-      <li><a href="index.html" class="mobile-nav__link mobile-nav__link--active">Home</a></li>
+      <li><a href="index.html" class="mobile-nav__link mobile-nav__link--active" aria-current="page">Home</a></li>
       <li><a href="life-coaching.html" class="mobile-nav__link">Life Coaching</a></li>
       <li><a href="vocational-counseling.html" class="mobile-nav__link">Vocational Counseling</a></li>
       <li><a href="about.html" class="mobile-nav__link">About</a></li>
@@ -115,9 +140,10 @@
           <!-- Life Coaching Card -->
           <div class="card">
             <div class="card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"/>
-                <path d="M12 16v-4M12 8h.01"/>
+                <circle cx="12" cy="12" r="6"/>
+                <circle cx="12" cy="12" r="2"/>
               </svg>
             </div>
             <h3 class="card__title">Clarity & Goal Setting</h3>
@@ -130,7 +156,7 @@
           <!-- Accountability Card -->
           <div class="card">
             <div class="card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                 <polyline points="22 4 12 14.01 9 11.01"/>
               </svg>
@@ -145,7 +171,7 @@
           <!-- Mindset Card -->
           <div class="card">
             <div class="card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M12 2a10 10 0 1 0 10 10H12V2z"/>
                 <path d="M12 2a10 10 0 0 1 10 10"/>
                 <circle cx="12" cy="12" r="6"/>
@@ -161,7 +187,7 @@
           <!-- Career Assessment Card -->
           <div class="card">
             <div class="card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                 <line x1="8" y1="21" x2="16" y2="21"/>
                 <line x1="12" y1="17" x2="12" y2="21"/>
@@ -177,7 +203,7 @@
           <!-- Job Preparation Card -->
           <div class="card">
             <div class="card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                 <polyline points="14 2 14 8 20 8"/>
                 <line x1="16" y1="13" x2="8" y2="13"/>
@@ -195,7 +221,7 @@
           <!-- Life Transitions Card -->
           <div class="card">
             <div class="card__icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="23 4 23 10 17 10"/>
                 <polyline points="1 20 1 14 7 14"/>
                 <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
@@ -227,31 +253,31 @@
             </p>
             <ul class="feature-list">
               <li class="feature-list__item">
-                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 <span class="feature-list__text">People who feel stuck but know they have more potential</span>
               </li>
               <li class="feature-list__item">
-                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 <span class="feature-list__text">Professionals seeking career advancement or change</span>
               </li>
               <li class="feature-list__item">
-                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 <span class="feature-list__text">Individuals facing employment barriers or disabilities</span>
               </li>
               <li class="feature-list__item">
-                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 <span class="feature-list__text">Anyone wanting better habits, confidence, or direction</span>
               </li>
               <li class="feature-list__item">
-                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg class="feature-list__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 <span class="feature-list__text">Those navigating major life transitions</span>
@@ -260,14 +286,16 @@
           </div>
           <div>
             <div class="card" style="background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-primary-50) 100%); border: none;">
-              <blockquote style="font-size: var(--font-size-lg); font-style: italic; color: var(--color-primary-800); margin: 0; line-height: 1.8;">
-                "Everyone deserves the opportunity to discover their strengths,
-                build independence, and move forward with confidence.
-                That's what guides my work every day."
-              </blockquote>
-              <p style="margin-top: var(--spacing-lg); margin-bottom: 0; font-weight: 600; color: var(--color-primary-700);">
-                — Your NorthStar Guide
-              </p>
+              <figure>
+                <blockquote style="font-size: var(--font-size-lg); font-style: italic; color: var(--color-primary-800); margin: 0; line-height: 1.8;">
+                  <p style="margin-bottom: 0;">Everyone deserves the opportunity to discover their strengths,
+                  build independence, and move forward with confidence.
+                  That's what guides my work every day.</p>
+                </blockquote>
+                <figcaption style="margin-top: var(--spacing-lg); margin-bottom: 0; font-weight: 600; color: var(--color-primary-700);">
+                  — Your NorthStar Guide
+                </figcaption>
+              </figure>
             </div>
           </div>
         </div>
@@ -275,16 +303,16 @@
     </section>
 
     <!-- Credentials Section -->
-    <section class="credentials">
+    <section class="credentials" aria-labelledby="credentials-heading">
       <div class="container">
         <div class="credentials__badge">
-          <svg class="credentials__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg class="credentials__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="8" r="7"/>
             <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/>
           </svg>
           <span>Professional Credentials</span>
         </div>
-        <h2 class="credentials__title">Master's of Science Degree</h2>
+        <h2 id="credentials-heading" class="credentials__title">Master of Science Degree</h2>
         <p class="credentials__text">
           Over 22 years of professional experience in vocational counseling and life coaching,
           helping individuals across a wide spectrum of needs achieve their goals.
