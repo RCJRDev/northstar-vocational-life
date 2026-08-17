@@ -1,5 +1,5 @@
 /**
- * NorthStar Vocational & Life Services
+ * Pathways to Employment
  * Main JavaScript File
  */
 
@@ -13,48 +13,83 @@
     const toggle = document.querySelector('.header__mobile-toggle');
     const mobileNav = document.querySelector('.mobile-nav');
     const mobileLinks = document.querySelectorAll('.mobile-nav__link');
+    const spans = toggle ? toggle.querySelectorAll('span') : null;
     const body = document.body;
+
+    // Landmarks that sit behind the full-screen mobile-nav overlay once it's
+    // open. The header itself (logo + toggle button) stays visually on top
+    // of the overlay (higher z-index) and stays interactive, but the
+    // desktop `.nav`/CTA (relevant if the viewport is resized while the
+    // menu is open) plus <main> and <footer> are covered by the overlay and
+    // must not be reachable via Tab/Shift+Tab or AT while it's open.
+    const desktopNav = document.querySelector('.nav');
+    const headerCta = document.querySelector('.header__cta');
+    const main = document.querySelector('main');
+    const footer = document.querySelector('footer');
+    const backgroundEls = [desktopNav, headerCta, main, footer].filter(Boolean);
 
     if (!toggle || !mobileNav) return;
 
-    const toggleNav = () => {
-      const isOpen = mobileNav.classList.contains('mobile-nav--open');
-      mobileNav.classList.toggle('mobile-nav--open');
-      toggle.setAttribute('aria-expanded', !isOpen);
-      body.style.overflow = isOpen ? '' : 'hidden';
+    // The mobile nav panel is moved off-screen with a CSS transform (not
+    // display:none), so without this it stays reachable via Tab/AT even
+    // while visually hidden. `inert` + aria-hidden remove it from the
+    // focus order and accessibility tree until it's actually open.
+    const setNavOpen = (open) => {
+      mobileNav.classList.toggle('mobile-nav--open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      body.style.overflow = open ? 'hidden' : '';
+
+      if (open) {
+        mobileNav.removeAttribute('aria-hidden');
+        mobileNav.removeAttribute('inert');
+      } else {
+        mobileNav.setAttribute('aria-hidden', 'true');
+        mobileNav.setAttribute('inert', '');
+      }
+
+      // Trap focus inside the open overlay: everything behind it becomes
+      // inert so Tab/Shift+Tab can't escape past the mobile nav's links
+      // into content sitting underneath. The toggle button itself is left
+      // alone (it's outside backgroundEls) so it stays operable to close
+      // the menu.
+      backgroundEls.forEach((el) => {
+        if (open) {
+          el.setAttribute('aria-hidden', 'true');
+          el.setAttribute('inert', '');
+        } else {
+          el.removeAttribute('aria-hidden');
+          el.removeAttribute('inert');
+        }
+      });
 
       // Animate hamburger icon
-      const spans = toggle.querySelectorAll('span');
-      if (!isOpen) {
-        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-      } else {
-        spans[0].style.transform = '';
-        spans[1].style.opacity = '';
-        spans[2].style.transform = '';
+      if (spans && spans.length === 3) {
+        if (open) {
+          spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+          spans[1].style.opacity = '0';
+          spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        } else {
+          spans[0].style.transform = '';
+          spans[1].style.opacity = '';
+          spans[2].style.transform = '';
+        }
       }
     };
 
-    toggle.addEventListener('click', toggleNav);
+    toggle.addEventListener('click', () => {
+      setNavOpen(!mobileNav.classList.contains('mobile-nav--open'));
+    });
 
     // Close on link click
     mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileNav.classList.remove('mobile-nav--open');
-        toggle.setAttribute('aria-expanded', 'false');
-        body.style.overflow = '';
-        const spans = toggle.querySelectorAll('span');
-        spans[0].style.transform = '';
-        spans[1].style.opacity = '';
-        spans[2].style.transform = '';
-      });
+      link.addEventListener('click', () => setNavOpen(false));
     });
 
-    // Close on escape key
+    // Close on escape key and return focus to the toggle button
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && mobileNav.classList.contains('mobile-nav--open')) {
-        toggleNav();
+        setNavOpen(false);
+        toggle.focus();
       }
     });
   };
@@ -87,13 +122,24 @@
         const target = document.querySelector(href);
         if (target) {
           e.preventDefault();
-          const headerHeight = document.querySelector('.header').offsetHeight;
+          const header = document.querySelector('.header');
+          const headerHeight = header ? header.offsetHeight : 0;
           const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
 
           window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
           });
+
+          // Move focus to the target (e.g. the "Skip to main content" link)
+          // so keyboard/screen-reader users actually land where the page
+          // scrolled to, instead of focus staying on the link they clicked.
+          const hadTabIndex = target.hasAttribute('tabindex');
+          if (!hadTabIndex) target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
+          if (!hadTabIndex) {
+            target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+          }
         }
       });
     });
@@ -144,9 +190,9 @@
         errorMsg = 'This field is required';
       }
 
-      // Name validation - only letters, spaces, hyphens, apostrophes
+      // Name validation - letters (incl. accented/Spanish characters), spaces, hyphens, apostrophes
       if (field.id === 'name' && value) {
-        const nameRegex = /^[A-Za-z\s\-']+$/;
+        const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s\-']+$/;
         if (!nameRegex.test(value)) {
           isValid = false;
           errorMsg = 'Please enter a valid name (letters only)';
@@ -349,45 +395,40 @@
   };
 
   // ==========================================
-  // Intersection Observer for Animations
-  // ==========================================
-  const initScrollAnimations = () => {
-    // Check for reduced motion preference
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    // Observe elements with animation class
-    document.querySelectorAll('.animate-on-scroll').forEach(el => {
-      observer.observe(el);
-    });
-  };
-
-  // ==========================================
   // Set Active Navigation Link
   // ==========================================
   const setActiveNavLink = () => {
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    // Normalize both the current URL and each link's href to a bare page
+    // name (no leading/trailing slashes, no .html extension) so this still
+    // matches correctly whether the site is served with the .html
+    // extension or via Vercel's cleanUrls (e.g. "/about" instead of
+    // "/about.html") - the raw pathname comparison used previously only
+    // ever matched the homepage under cleanUrls.
+    const normalize = (path) => {
+      const clean = path.split('#')[0].split('?')[0]
+        .replace(/^\/+|\/+$/g, '')
+        .replace(/\.html$/i, '');
+      return clean === '' ? 'index' : clean;
+    };
+
+    const currentPage = normalize(window.location.pathname);
 
     document.querySelectorAll('.nav__link, .mobile-nav__link').forEach(link => {
       const href = link.getAttribute('href');
-      if (href === currentPage || (currentPage === '' && href === 'index.html')) {
-        link.classList.add('nav__link--active', 'mobile-nav__link--active');
+      if (!href) return;
+
+      const isActive = normalize(href) === currentPage;
+      // Only toggle the class that matches this link's own nav (desktop vs
+      // mobile) rather than applying both to every match.
+      const activeClass = link.classList.contains('mobile-nav__link')
+        ? 'mobile-nav__link--active'
+        : 'nav__link--active';
+
+      link.classList.toggle(activeClass, isActive);
+      if (isActive) {
+        link.setAttribute('aria-current', 'page');
+      } else {
+        link.removeAttribute('aria-current');
       }
     });
   };
@@ -401,7 +442,6 @@
     initSmoothScroll();
     initContactForm();
     initAccordion();
-    initScrollAnimations();
     setActiveNavLink();
   };
 

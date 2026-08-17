@@ -1,5 +1,5 @@
 /* ========================================
-   NorthStar Vocational & Life Services
+   Pathways to Employment
    Main Stylesheet
    ======================================== */
 
@@ -34,13 +34,13 @@
   /* Accent Colors */
   --color-accent-teal: #319795;
   --color-accent-teal-light: #4fd1c5;
-  --color-success: #38a169;
-  --color-error: #e53e3e;
+  --color-success: #276749;
+  --color-error: #c53030;
   --color-warning: #dd6b20;
 
   /* Semantic Colors */
   --color-text-primary: var(--color-neutral-800);
-  --color-text-secondary: var(--color-neutral-600);
+  --color-text-secondary: var(--color-neutral-700);
   --color-text-light: var(--color-neutral-50);
   --color-background: var(--color-neutral-50);
   --color-background-alt: var(--color-primary-50);
@@ -152,6 +152,23 @@ button {
   background: none;
 }
 
+button:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Stronger, higher-contrast focus ring for interactive elements on dark
+   backgrounds where the default blue outline has less contrast */
+.hero :focus-visible,
+.page-header :focus-visible,
+.credentials :focus-visible,
+.cta-section :focus-visible,
+.section--dark :focus-visible,
+.footer :focus-visible {
+  outline-color: var(--color-neutral-50);
+}
+
 /* ----------------------------------------
    Typography
    ---------------------------------------- */
@@ -160,6 +177,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: var(--line-height-tight);
   color: var(--color-primary-900);
+  text-wrap: balance;
 }
 
 h1 {
@@ -235,6 +253,18 @@ p {
   margin: 0 auto var(--spacing-3xl);
 }
 
+/* Tighter section rhythm on small screens so long pages don't feel like
+   an endless scroll of empty space between blocks */
+@media (max-width: 639px) {
+  .section {
+    padding: var(--spacing-3xl) 0;
+  }
+
+  .section-header {
+    margin-bottom: var(--spacing-2xl);
+  }
+}
+
 /* Grid System */
 .grid {
   display: grid;
@@ -300,10 +330,28 @@ p {
   flex-wrap: wrap;
 }
 
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.order-1 { order: 1; }
+.order-2 { order: 2; }
+
 .gap-sm { gap: var(--spacing-sm); }
 .gap-md { gap: var(--spacing-md); }
 .gap-lg { gap: var(--spacing-lg); }
 .gap-xl { gap: var(--spacing-xl); }
+.gap-3xl { gap: var(--spacing-3xl); }
+
+/* Force an early 3-up layout for grids that hold exactly three items,
+   so a two-column tablet layout (768-1023px) doesn't leave a lone
+   orphaned card by itself in the last row. Applied alongside .grid--3
+   on specific instances rather than changing the shared breakpoint,
+   since 6-item .grid--3 usages elsewhere still read better at 2-up on
+   tablet widths. */
+@media (min-width: 768px) {
+  .grid--3.grid--3-tablet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
 /* ----------------------------------------
    Button Components
@@ -372,6 +420,20 @@ p {
   font-size: var(--font-size-sm);
 }
 
+.btn:disabled,
+.btn[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+}
+
+.btn--primary:active:not(:disabled),
+.btn--secondary:active:not(:disabled),
+.btn--light:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
 .btn-group {
   display: flex;
   flex-wrap: wrap;
@@ -404,6 +466,36 @@ p {
   box-shadow: var(--shadow-md);
 }
 
+/* Recurring ad hoc "gradient card" treatment used for icon callouts and
+   testimonial cards across several pages. */
+.card--gradient {
+  background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-primary-50) 100%);
+  border: none;
+}
+
+/* Bordered gradient treatment used for pull-quote / philosophy cards. */
+.card--quote {
+  background: linear-gradient(135deg, var(--color-primary-50) 0%, var(--color-neutral-50) 100%);
+  border: 2px solid var(--color-primary-200);
+}
+
+/* Centered icon + caption card, typically paired with .card--gradient. */
+.service-card {
+  text-align: center;
+}
+
+.service-card__icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto var(--spacing-lg);
+}
+
+.service-card__caption {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary-800);
+  margin-bottom: 0;
+}
+
 .card__icon {
   width: 60px;
   height: 60px;
@@ -414,6 +506,12 @@ p {
   justify-content: center;
   margin-bottom: var(--spacing-lg);
   color: var(--color-primary-600);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+.card:hover .card__icon {
+  background-color: var(--color-primary-600);
+  color: var(--color-neutral-50);
 }
 
 .card__icon svg {
@@ -541,7 +639,11 @@ p {
   width: 24px;
   height: 2px;
   background-color: var(--color-primary-900);
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  transition: transform var(--transition-fast), opacity var(--transition-fast), background-color var(--transition-fast);
+}
+
+.header__mobile-toggle:hover span {
+  background-color: var(--color-primary-600);
 }
 
 .mobile-nav {
@@ -605,6 +707,7 @@ p {
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, var(--color-primary-900) 0%, var(--color-primary-700) 100%);
@@ -663,6 +766,11 @@ p {
   flex-direction: column;
   gap: var(--spacing-md);
   align-items: center;
+  width: 100%;
+}
+
+.hero__buttons .btn {
+  width: 100%;
 }
 
 .hero__scroll {
@@ -694,6 +802,11 @@ p {
   .hero__buttons {
     flex-direction: row;
     justify-content: center;
+    width: auto;
+  }
+
+  .hero__buttons .btn {
+    width: auto;
   }
 }
 
@@ -761,6 +874,16 @@ p {
   color: var(--color-text-primary);
 }
 
+/* Allow horizontal scroll instead of overflowing the page on narrow
+   screens, since the table has three content-heavy columns */
+@media (max-width: 700px) {
+  .comparison-table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* ----------------------------------------
    Stats Section
    ---------------------------------------- */
@@ -773,6 +896,13 @@ p {
 
 .stats__item {
   padding: var(--spacing-xl);
+  background-color: var(--color-background-alt);
+  border-radius: var(--border-radius-lg);
+  transition: transform var(--transition-normal);
+}
+
+.stats__item:hover {
+  transform: translateY(-2px);
 }
 
 .stats__number {
@@ -907,6 +1037,12 @@ p {
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
+.form-input:hover,
+.form-select:hover,
+.form-textarea:hover {
+  border-color: var(--color-primary-300);
+}
+
 .form-input:focus,
 .form-select:focus,
 .form-textarea:focus {
@@ -940,6 +1076,15 @@ p {
   margin-top: var(--spacing-xs);
 }
 
+/* Hidden by default; js/main.js reveals these by setting
+   .style.display = 'block' directly, so this base rule must stay a
+   normal-weight (non-!important) declaration for that inline toggle
+   to win the cascade. */
+.form-success,
+.form-error-message {
+  display: none;
+}
+
 .form-success {
   background-color: #f0fff4;
   border: 1px solid var(--color-success);
@@ -949,6 +1094,12 @@ p {
   text-align: center;
 }
 
+.form-success__icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 auto var(--spacing-sm);
+}
+
 .form-error-message {
   background-color: #fff5f5;
   border: 1px solid var(--color-error);
@@ -956,6 +1107,15 @@ p {
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-md);
   text-align: center;
+}
+
+/* Honeypot spam-trap field: hidden from sighted users and assistive
+   tech, but left in the DOM/tab order for bots to fill in. */
+.form-honeypot {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
 
 /* ----------------------------------------
@@ -1005,6 +1165,32 @@ p {
 
 .content-block:last-child {
   margin-bottom: 0;
+}
+
+.content-block--spaced {
+  margin-bottom: var(--spacing-4xl);
+}
+
+/* Pull-quote / testimonial blockquote styling, reused inside
+   .card--gradient / .card--quote callouts. */
+.blockquote--testimonial {
+  font-style: italic;
+  color: var(--color-primary-800);
+  line-height: 1.8;
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.blockquote--testimonial-lg {
+  font-size: var(--font-size-xl);
+  text-align: center;
+}
+
+.blockquote__cite {
+  margin-top: var(--spacing-lg);
+  margin-bottom: 0;
+  font-weight: 600;
+  color: var(--color-primary-700);
 }
 
 .content-block__title {
@@ -1066,6 +1252,12 @@ p {
   background-color: var(--color-primary-50);
 }
 
+/* Parent .accordion clips overflow for its rounded corners, which would
+   crop an outset focus ring on the first/last header — keep it inset */
+.accordion__header:focus-visible {
+  outline-offset: -2px;
+}
+
 .accordion__icon {
   width: 24px;
   height: 24px;
@@ -1094,6 +1286,20 @@ p {
   background-color: var(--color-primary-900);
   color: var(--color-primary-200);
   padding: var(--spacing-4xl) 0 var(--spacing-xl);
+}
+
+@media (max-width: 639px) {
+  .footer {
+    padding-top: var(--spacing-3xl);
+  }
+
+  .page-header {
+    padding: calc(80px + var(--spacing-3xl)) 0 var(--spacing-3xl);
+  }
+
+  .cta-section {
+    padding: var(--spacing-3xl) 0;
+  }
 }
 
 .footer__grid {
@@ -1248,12 +1454,31 @@ p {
 .text-left { text-align: left; }
 .text-right { text-align: right; }
 
+.text-sm { font-size: var(--font-size-sm); }
+.text-base { font-size: var(--font-size-base); }
+
+.text-callout {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  margin-bottom: 0;
+}
+
+/* Centers an element and caps its width to the shared "narrow" content
+   token, for non-.container elements (cards, content blocks) that need
+   the same narrow reading measure. */
+.mx-auto-narrow {
+  max-width: var(--max-width-narrow);
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .mt-sm { margin-top: var(--spacing-sm); }
 .mt-md { margin-top: var(--spacing-md); }
 .mt-lg { margin-top: var(--spacing-lg); }
 .mt-xl { margin-top: var(--spacing-xl); }
 .mt-2xl { margin-top: var(--spacing-2xl); }
 
+.mb-0 { margin-bottom: 0; }
 .mb-sm { margin-bottom: var(--spacing-sm); }
 .mb-md { margin-bottom: var(--spacing-md); }
 .mb-lg { margin-bottom: var(--spacing-lg); }
@@ -1398,6 +1623,12 @@ p {
   justify-content: center;
   color: var(--color-primary-600);
   flex-shrink: 0;
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+}
+
+.contact-info-card:hover .contact-info-card__icon {
+  background-color: var(--color-primary-600);
+  color: var(--color-neutral-50);
 }
 
 .contact-info-card__icon svg {
@@ -1434,7 +1665,7 @@ p {
 }
 
 /* ==========================================
-   Scheduling Widget (Cal.com)
+   Contact Section Layout
    ========================================== */
 
 /* Layout */
@@ -1459,28 +1690,6 @@ p {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);
-}
-
-/* Widget container */
-.scheduling-widget {
-  padding: 0;
-  overflow: hidden;
-}
-
-.scheduling-widget #cal-inline {
-  width: 100%;
-  height: 700px;
-  overflow: auto;
-}
-
-/* Fallback for no-JS */
-.scheduling-fallback {
-  text-align: center;
-  padding: var(--spacing-xl);
-}
-
-.scheduling-fallback p {
-  margin-bottom: var(--spacing-lg);
 }
 
 /* Sidebar: Details Card */
@@ -1542,12 +1751,8 @@ p {
   justify-content: center;
 }
 
-/* Mobile: taller widget for payment forms */
+/* Mobile: sidebar spacing */
 @media (max-width: 1023px) {
-  .scheduling-widget #cal-inline {
-    height: 900px;
-  }
-
   .scheduling-sidebar {
     margin-top: var(--spacing-lg);
   }
@@ -1565,11 +1770,30 @@ p {
   }
 }
 
-/* Button Loader - hidden by default, shown via JS */
+/* Button Loader - hidden by default, shown via JS toggling
+   .style.display directly (see js/main.js). No !important here on
+   purpose: an !important base rule would block JS from ever revealing
+   the loader, since a plain inline style can't outrank an !important
+   stylesheet rule. Leaving this as a normal-weight rule lets the JS
+   inline style win when it sets display to "inline-flex". */
 .btn-loader {
-  display: none !important;
+  display: none;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
-.btn-loader.is-active {
-  display: inline !important;
+.btn-loader::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: btn-loader-spin 0.7s linear infinite;
+}
+
+@keyframes btn-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
