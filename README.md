@@ -1,6 +1,6 @@
-# Pathways to Employment
+# North Star Vocational
 
-Professional website for Pathways to Employment, an Employment Success Program offering
+Professional website for North Star Vocational, an Employment Success Program offering
 job readiness training and workplace success coaching: "From Getting the Job to Keeping the Job."
 
 ## Overview
@@ -23,10 +23,10 @@ A responsive, accessible website built with HTML, CSS, and JavaScript. Features 
 
 ## Before Launch
 
-- Replace the placeholder phone `(555) 123-4567` and email `info@pathwaystoemployment.com`
-  with real contact details throughout the HTML files.
+- Real contact details (`(860) 394-5340`, `jnet3461@gmail.com`) and the canonical/OG
+  domain (`https://northstarvocationallifecoach.online`) are already in place throughout
+  the HTML files.
 - Set up the contact form's email delivery (see "Contact Form Email Setup" below).
-- Update the canonical/OG URLs (`https://pathwaystoemployment.com/...`) once a real domain is set.
 - If you want online self-scheduling later (Cal.com or similar), re-add the embed and
   restore its allowance in `vercel.json`'s Content-Security-Policy header.
 - Consider adding a CSP `report-uri`/`report-to` directive once a real reporting endpoint exists, to catch any future inline-script regressions.
@@ -40,7 +40,9 @@ variables set in the Vercel dashboard.
 
 ### 1. Generate a Gmail App Password
 
-1. Sign in to the Google Account that will send the emails (`jnet3461@gmail.com`).
+1. Sign in to the Google Account that will send the emails (this can be any Gmail
+   account you control — it does not need to be `jnet3461@gmail.com`, which is the
+   recipient, not the sender).
 2. Go to **Google Account > Security**.
 3. Make sure **2-Step Verification** is turned ON (App Passwords require it).
 4. Go to **Security > App Passwords** (search "App Passwords" if you don't see it).
@@ -53,9 +55,9 @@ In the Vercel dashboard: **Project Settings > Environment Variables**, add:
 
 | Variable           | Value                                              | Required |
 |---------------------|-----------------------------------------------------|----------|
-| `SMTP_USER`         | `jnet3461@gmail.com`                                 | Yes |
+| `SMTP_USER`         | The Gmail address you generated the App Password for (the sender) | Yes |
 | `SMTP_PASS`          | The 16-character App Password generated above (NOT the normal Gmail login password) | Yes |
-| `CONTACT_TO_EMAIL`  | A different recipient address, if you don't want submissions to go to `jnet3461@gmail.com` | No |
+| `CONTACT_TO_EMAIL`  | Defaults to `jnet3461@gmail.com`; set this only if submissions should go elsewhere | No |
 
 ### 3. Redeploy
 
@@ -69,4 +71,4 @@ Static site deployable to any hosting platform (Vercel, Netlify, GitHub Pages, o
 
 ## License
 
-All rights reserved. Pathways to Employment.
+All rights reserved. North Star Vocational.

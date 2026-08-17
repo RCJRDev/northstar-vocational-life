@@ -3,12 +3,14 @@
  *
  * Required environment variables (set in Vercel Project Settings > Environment
  * Variables, never committed to the repo):
- *   SMTP_USER        - the sending Gmail address (e.g. jnet3461@gmail.com)
+ *   SMTP_USER        - the sending Gmail address (any Gmail account configured
+ *                       with an App Password; this is the account that sends
+ *                       the mail, not the recipient)
  *   SMTP_PASS        - a Gmail "App Password" for that account (NOT the normal
  *                       account login password). Generate one at
  *                       Google Account > Security > 2-Step Verification > App Passwords.
  *   CONTACT_TO_EMAIL - optional; recipient address. Defaults to jnet3461@gmail.com
- *                       (same account sends to itself) if not set.
+ *                       if not set.
  *
  * After adding/changing these in the Vercel dashboard, redeploy the project —
  * serverless functions only pick up env var changes on a new deployment.
@@ -105,7 +107,7 @@ module.exports = async function handler(req, res) {
   });
 
   const textBody = [
-    `New contact form submission from Pathways to Employment`,
+    `New contact form submission from North Star Vocational`,
     ``,
     `Name: ${name}`,
     `Email: ${email}`,
@@ -125,7 +127,7 @@ module.exports = async function handler(req, res) {
       .replace(/'/g, '&#39;');
 
   const htmlBody = `
-    <p><strong>New contact form submission from Pathways to Employment</strong></p>
+    <p><strong>New contact form submission from North Star Vocational</strong></p>
     <p>
       <strong>Name:</strong> ${escapeHtml(name)}<br>
       <strong>Email:</strong> ${escapeHtml(email)}<br>
