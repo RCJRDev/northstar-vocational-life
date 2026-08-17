@@ -23,7 +23,6 @@
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="dns-prefetch" href="https://api.web3forms.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
@@ -146,16 +145,23 @@
               There was an error sending your message. Please try again or contact us directly by phone.
             </div>
 
-            <!-- Contact Form with Web3Forms -->
-            <!-- Replace access_key below with your own Web3Forms key before launch -->
-            <form id="contact-form" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
-          <!-- Web3Forms Access Key -->
-          <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
-          <input type="hidden" name="subject" value="New Contact Form Submission - Pathways to Employment">
-          <input type="hidden" name="from_name" value="Pathways to Employment Website">
-
+            <!-- Contact Form — submitted via JS fetch() to our own /api/contact serverless function -->
+            <form id="contact-form" class="contact-form">
           <!-- Honeypot Spam Protection -->
           <input type="checkbox" name="botcheck" id="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+          <!-- Timing-based anti-spam check; value set by js/main.js on page load -->
+          <input type="hidden" id="form-loaded-at" name="formLoadedAt" value="">
+
+          <noscript>
+            <div class="card">
+              <p>JavaScript is required to send this form. Please contact us directly:</p>
+              <div class="btn-group btn-group--center">
+                <a href="tel:5551234567" class="btn btn--primary">Call (555) 123-4567</a>
+                <a href="mailto:jnet3461@gmail.com" class="btn btn--secondary">Email Us</a>
+              </div>
+            </div>
+          </noscript>
 
           <div class="form-row">
             <div class="form-group">
@@ -240,6 +246,14 @@
             <span class="btn-text">Send Message</span>
             <span class="btn-loader" aria-hidden="true">Sending...</span>
           </button>
+
+          <p class="form-trust-note">
+            <svg class="form-trust-note__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            Sent directly and securely — no third-party service involved.
+          </p>
             </form>
           </div>
 

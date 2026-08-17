@@ -1118,6 +1118,48 @@ p {
   left: -9999px !important;
 }
 
+/* Trust note under the submit button, reassuring users their message
+   goes straight to us with no third-party form service in between.
+   Deliberately quiet: muted secondary color, small type, centered —
+   reads as calm reassurance, not an alert. */
+.form-trust-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  margin-bottom: 0;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+.form-trust-note__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+/* Very subtle entrance so the note doesn't just pop in with the rest
+   of the static markup; skipped entirely when motion is reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  .form-trust-note {
+    animation: form-trust-note-in var(--transition-slow) ease-out;
+  }
+}
+
+@keyframes form-trust-note-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ----------------------------------------
    Page Header
    ---------------------------------------- */

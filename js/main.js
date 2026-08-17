@@ -146,11 +146,15 @@
   };
 
   // ==========================================
-  // Contact Form Handling with Web3Forms
+  // Contact Form Handling (self-hosted /api/contact)
   // ==========================================
   const initContactForm = () => {
     const form = document.getElementById('contact-form');
     if (!form) return;
+
+    // Record when the form loaded, for the server's timing-based anti-spam check.
+    const formLoadedAtField = form.querySelector('#form-loaded-at');
+    if (formLoadedAtField) formLoadedAtField.value = String(Date.now());
 
     const submitBtn = form.querySelector('button[type="submit"]');
     const successMessage = document.getElementById('form-success');
@@ -305,28 +309,42 @@
       if (errorMessage) errorMessage.style.display = 'none';
 
       try {
-        // Create sanitized form data
+        // Build a sanitized JSON payload for our own /api/contact endpoint
         const formData = new FormData(form);
 
-        // Sanitize text inputs
-        formData.set('name', sanitizeInput(formData.get('name')));
-        formData.set('email', sanitizeInput(formData.get('email')));
-        formData.set('phone', sanitizeInput(formData.get('phone')));
-        formData.set('message', sanitizeInput(formData.get('message')));
+        const payload = {
+          name: sanitizeInput(formData.get('name')),
+          email: sanitizeInput(formData.get('email')),
+          phone: sanitizeInput(formData.get('phone')),
+          service: formData.get('service') || '',
+          message: sanitizeInput(formData.get('message')),
+          botcheck: honeypot ? honeypot.checked : false,
+          formLoadedAt: formData.get('formLoadedAt') || ''
+        };
 
         // Create AbortController for timeout
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 15000); // 15 second timeout
 
-        const response = await fetch('https://api.web3forms.com/submit', {
+        const response = await fetch('/api/contact', {
           method: 'POST',
-          body: formData,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
           signal: controller.signal
         });
 
         clearTimeout(timeoutId);
 
-        const result = await response.json();
+        // Parse the response body separately from the fetch itself: a JSON
+        // parse failure means the server sent something unexpected (e.g. an
+        // HTML error page), not an API-supplied message — never surface that
+        // raw parser error to the user.
+        let result;
+        try {
+          result = await response.json();
+        } catch (parseError) {
+          throw new Error('__unexpected_response__');
+        }
 
         if (result.success) {
           // Update last submit time for rate limiting
@@ -339,6 +357,8 @@
           // Scroll to success message
           successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
+          // result.message here is always a safe, human-written string from
+          // our own /api/contact endpoint (validation errors, etc.)
           throw new Error(result.message || 'Something went wrong');
         }
       } catch (error) {
@@ -350,7 +370,12 @@
         } else {
           console.error('Form submission error:', error);
           if (errorMessage) {
-            errorMessage.textContent = 'There was an error sending your message. Please try again or contact us directly by phone.';
+            const isSafeApiMessage = error.message
+              && error.message !== 'Something went wrong'
+              && error.message !== '__unexpected_response__';
+            errorMessage.textContent = isSafeApiMessage
+              ? error.message
+              : 'There was an error sending your message. Please try again or contact us directly by phone.';
             errorMessage.style.display = 'block';
           }
         }
